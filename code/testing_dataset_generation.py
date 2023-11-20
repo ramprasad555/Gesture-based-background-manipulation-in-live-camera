@@ -11,7 +11,7 @@ offset = 20
 imgSize = 300
 
 #have to change the folder path for every gesture.
-folder = "./code/data/"
+folder = "./code/data/peace_sign/"
 counter = 0
 
 while True:
@@ -54,5 +54,6 @@ while True:
         counter += 1
         cv2.imwrite(f'{folder}_Image_{time.time()}.jpg',imgWhite)
         print(counter)
-    if counter == 10:
+    if key == ord('q'):
         break
+    

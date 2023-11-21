@@ -20,7 +20,7 @@ while True:
     if hands:
         hand = hands[0]
         x, y, w, h = hand['bbox']
-
+        print(x,y,w,h)
         imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
         imgCrop = img[y - offset:y + h + offset, x - offset:x + w + offset]
 
@@ -29,7 +29,6 @@ while True:
         aspectRatio = h / w
 
         if aspectRatio > 1:
-            print("AspectRatio")
             k = imgSize / h
             wCal = math.ceil(k * w)
             imgResize = cv2.resize(imgCrop, (wCal, imgSize))

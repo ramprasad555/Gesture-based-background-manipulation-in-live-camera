@@ -1,29 +1,18 @@
-﻿
-**Group name - Techno Turtles**
+﻿**Group name - Techno Turtles**
 
-**Group Members** - Pavan Kumar Jonnadula(pj1098), Ramprasad Kokkula (rk1668), Aakanksha Padmanabhan(al7275), Vaishnavi Patil (vp2156)
+**Group Members** - Pavan Kumar Jonnadula (pj1098), Ramprasad Kokkula (rk1668), Aakanksha Padmanabhan(al7275), Vaishnavi Patil (vp2156)
 
 **Project Title - Gesture Recognition and Background Manipulation in Live Camera.**
 
 **Abstract / Overview**
 
-In the realm of computer vision and human-computer interaction, our project focuses on Gesture Recognition and Background Manipulation in Live Camera. Recognizing the significance of visual communication today, our goal is to lead in real-time gesture recognition and background manipulation, opening doors to applications like enriched gaming and improved video conferencing.
-
-Our project introduces an innovative real-time gesture-controlled system to effortlessly tweak backgrounds in live videos and images. The dynamic backgrounds act as an interactive canvas, achieved through customizing existing gesture recognition models. However, challenges exist, such as user engagement limitations, generic gesture models, background manipulation shortcomings, transition issues, and complex gesture-background correlations.
-
-Our project tackles these challenges head-on, aiming to create a solution that seamlessly merges real-time gesture recognition with dynamic background changes. By doing so, we aim to boost user engagement and offer a tailored, interactive experience in dynamic background manipulation for both live videos and images. This project strives to redefine visual interactions, providing an immersive platform that caters to diverse user preferences and environments.
-
+This project delves into the realm of computer vision with a focus on image processing, feature extraction, and object recognition, centering on the understanding of gestures and background changes in images. Using existing libraries like the cvzone handTracking module, key gesture points will be extracted. The exploration extends to various machine learning frameworks for testing classifier models, with the selection of the most effective one. OpenCV is employed for image processing tasks, including background manipulation and segmentation, while PyTorch and existing CNN models are fine-tuned for segmentation. The project's overarching goal is to combine gesture recognition with background changes, offering users an interactive experience.
 
 **Learning Objectives**
 
-In our project, we want to explore the concepts of computer vision, focusing on image processing, feature extraction, and recognizing objects. Our main focus is on understanding gestures and changing backgrounds in images. We'll dive into deep learning, especially Convolutional Neural Networks (CNNs), to become skilled at training and using models for accurate gesture recognition.
+In our project, we want to explore the concepts of computer vision, focusing on image processing, feature extraction, and recognizing objects. Our main focus is on understanding gestures and changing backgrounds in images. We'll dive into Convolutional Neural Networks (CNNs), to become skilled at and using models for accurate gesture recognition.
 
-During the project, our main goal is to learn about hand recognition models and how they work. We'll actively contribute to making a special dataset designed for training our chosen model. Using established CNNs, we'll understand how to train the model with our dataset. We'll then use this knowledge in real-life situations, applying techniques to separate the hand from the background. This hands-on approach will give us practical experience, from training the model to using it in the real world, making us more skilled in hand recognition and image processing.
-
-
-
-
-
+Using existing libraries such as the cvzone handTracking module, we will extract key points of gestures. We will learn various machine learning frameworks and test different classifier models to compare and select the most effective one. We will use PyTorch and existing CNN models for segmentation and fine-tune them to meet our requirements.
 
 **Discussion of ethics**
 
@@ -31,76 +20,64 @@ We'll make sure to consider ethical concerns at every stage of our project. The 
 
 **1. Privacy Protection:**
 
-To safeguard user privacy, all collected data, whether for model training or system evaluation, will be anonymized and stored securely. 
+Our dataset is collected from Kaggle website, where privacy protection is considered all ready.
 
 **2. Bias Mitigation:**
 
-Regular evaluations will be conducted to ensure fair and unbiased outcomes for all users, irrespective of individual characteristics.
+This has been taken care of in the pre-processing stage, as we will be dealing with points and not the image.
 
-**3. Informed Consent:**
+**3. Misuse of the model**
 
-The purpose of data collection, its use, and participants' rights will be clearly communicated, emphasizing a commitment to ethical data handling practices.
+There might be a misuse of the gesture recognition model to train certain gestures which are not appropriate.
 
-**4. Ongoing Evaluation and Monitoring:**
+**What Exists and how we'll use it**
 
-Continuous evaluation and monitoring will be integral to our ethical framework. Regular assessments will be conducted to identify and rectify biases, incorporating user feedback mechanisms to adapt the system to evolving ethical considerations and user needs.
+**OpenCV:** We will use OpenCV for various image processing tasks, including background manipulation and segmentation. We are using existing libraries like cvzone handTracking module to extract the key points of the gesture.
 
-**5. Documentation and Accountability:**
+**Machine Learning Frameworks:** We will be trying some existing classifier models to train and test, comparing the results of each classifier. Then we will choose the classifier with the best result.
 
-Transparent documentation of ethical considerations, decision-making processes, and accountability measures will be maintained throughout the project. This commitment ensures a clear record of ethical practices and facilitates accountability for the responsible development and deployment of our system.
-
-
-**What Exists and how we’ll use it**
-
-Computer Vision Libraries:
-
-**OpenCV:** We will use OpenCV for various image processing tasks, including background manipulation and segmentation. Its rich set of functions makes it a valuable tool for our computer vision needs.
-
-Machine Learning Frameworks:
-
-**TensorFlow and PyTorch:** These frameworks are essential for implementing and training Convolutional Neural Networks (CNNs) for gesture recognition. Leveraging pre-trained models and fine-tuning them to our specific requirements will expedite our progress.
-
-Gesture Recognition Models:
-
-**MediaPipe Hands:** We plan to explore and potentially use the MediaPipe Hands library for hand gesture recognition. This existing model can serve as a strong foundation, and we may customize it to align with our project's objectives.
-
+**PyTorch:** We are using existing PyTorch CNN models to implement segmentation and fine-tune them to our specific requirements which will expedite our progress.
 
 **Reach Goal**
 
-This project aims to smoothly combine recognizing gestures with changing backgrounds, providing users with an engaging and interactive experience.
+This project aims to smoothly combine recognizing gestures with changing backgrounds, providing users with an interactive experience.
 
 **Minimum Goal**
 
-Our project currently has two minimal goals both of which can be achieved separately. 
-
-1. **Segmentation** 
-
-This involves developing a system capable of accurately identifying and isolating relevant elements within an image, laying the foundation for subsequent gesture recognition and background manipulation. 
+Our project currently has two minimal goals both of which can be achieved separately.
 
 1. **Gesture Detection**
 
-The system aims to recognize and interpret at least two distinct gestures from users interacting with the static image. This phase establishes the groundwork for the overarching goal of dynamic background manipulation through intuitive user gestures. 
+The system aims to recognize and interpret at least two distinct gestures (thumbs up and thumbs down) from users interacting in static images.
+
+1. **Segmentation**
+
+The system aims to segment people and apply backgrounds (solid colors and static images).
 
 **Milestones and internal deadlines**
 
-|**Milestone**|**Date**|**Topic Completed**|
-| :-: | :-: | :-: |
-|1|Nov 21|Understand Hand Gesture recognition models and generating datasets.|
-|2|Nov 28|Training the CNN classifier and mapping the outputs to the background.|
-|3|Dec 5|Applying segmentation to embed backgrounds(Static image/recorded videos) and Quality Assurance.|
+**Gestures:**
 
+| **Milestone** | **Date** | **Topic Completed** |
+| --- | --- | --- |
+| 1 | Nov 21 | Download 2 classes(thumbs up and thumbs down) and pre-process the datasets. |
+| 2 | Nov 28 | Build a simple model and test the model |
+| 3 | Dec 5 | Try different models and do live testing |
 
+**Segmentation:**
 
-
+| **Milestone** | **Date** | **Topic Completed** |
+| --- | --- | --- |
+| 1 | Nov 21 | Run existing models and compare speed and qualitative goodness |
+| 2 | Nov 28 | Apply static backgrounds(solid colors, static images) |
+| 3 | Dec 5 | Integrate gesture, such that backgrounds change on the basis of the gesture. |
 
 **Organization of the team**
 
-|**Topic**|**Worked By**|
-| :-: | :-: |
-|Project Idea Brainstorming, Documentation and Code quality|Everyone|
-|Understanding existing hand gesture models and Generating specific datasets.|Everyone|
-|Gesture Detection|<p>Ramprasad Kokkula, Pavan Kumar Jonnadula</p><p></p>|
-|Training the CNN classifier and mapping output to the backgrounds.|Ramprasad Kokkula, Pavan Kumar Jonnadula|
-|Segmentation of background|Aakanksha Padmanabhan, Vaishnavi Patil|
-|Implementation of segmentation on the static image / live video|Aakanksha Padmanabhan, Vaishnavi Patil|
-
+| **Topic** | **Worked By** |
+| --- | --- |
+| Project Idea Brainstorming, Documentation and Code quality | Everyone |
+| Understanding existing hand gesture models and segmentation models | Everyone |
+| Gesture Detection | Ramprasad Kokkula, Pavan Kumar Jonnadula
+ |
+| Segmentation of background | Aakanksha Padmanabhan, Vaishnavi Patil |

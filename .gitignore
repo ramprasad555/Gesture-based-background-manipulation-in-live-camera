@@ -1,7 +1,7 @@
 code/data
 keypoints_dislike.json
 keypoints_like.json
-output.json
+data.json
 live_capture_landmarks.json
 selected_objects.json
 normalized_objects.json

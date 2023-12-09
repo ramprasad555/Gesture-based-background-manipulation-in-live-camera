@@ -1,1 +1,7 @@
-/Users/ramprasadkokkula/Downloads/RIT_Fall_2023/CSCI631/cv_project/code/data/
+code/data
+keypoints_dislike.json
+keypoints_like.json
+output.json
+live_capture_landmarks.json
+selected_objects.json
+normalized_objects.json

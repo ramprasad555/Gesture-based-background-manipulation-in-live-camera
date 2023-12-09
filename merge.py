@@ -17,4 +17,4 @@ def merge_json_files(file1, file2, output_file):
         json.dump(merged_data, output, indent=2)
 
 # Replace 'file1.json', 'file2.json', and 'output.json' with your file names
-merge_json_files('keypoints_all.json', 'keypoints_like.json', 'output.json')
+merge_json_files('keypoints_dislike.json', 'keypoints_like.json', 'output.json')

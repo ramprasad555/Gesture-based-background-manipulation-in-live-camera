@@ -14,7 +14,6 @@ def process_live_camera(hands):
 
         # Flip the frame horizontally for a later selfie-view display
         frame = cv.flip(frame, 1)
-
         # Process the frame and get hand landmarks
         results = hands.process(frame)
 
@@ -27,12 +26,12 @@ def process_live_camera(hands):
                     my_lm_list.append([px, py])
 
                 # Normalize landmarks
-                normalized_landmarks = normalize_landmarks(my_lm_list)
+                normalized_landmarks = normalize_keypoints(my_lm_list)
 
                 # Create a dictionary for the current frame
                 current_data = {
                     "label": "live_capture",
-                    "label_identifier": 2,
+                    # "label_identifier": 2,
                     "landmarks": normalized_landmarks,
                 }
                 # Add the data to the overall dictionary
@@ -54,11 +53,13 @@ def process_live_camera(hands):
     cap.release()
     cv.destroyAllWindows()
 
-def normalize_landmarks(landmarks):
-    landmarks_array = np.array(landmarks)
-    z_score_landmarks = (landmarks_array - np.mean(landmarks_array, axis=0)) / np.std(landmarks_array, axis=0)
-    normalized_landmarks = (z_score_landmarks - np.min(z_score_landmarks, axis=0)) / (np.max(z_score_landmarks, axis=0) - np.min(z_score_landmarks, axis=0))
-    return normalized_landmarks.tolist()
+
+def normalize_keypoints(keypoints):
+    x_coords, y_coords = zip(*keypoints)
+    x_coords = (np.array(x_coords) - min(x_coords)) / (max(x_coords) - min(x_coords))
+    y_coords = (np.array(y_coords) - min(y_coords)) / (max(y_coords) - min(y_coords))
+    normalized_keypoints = list(zip(x_coords, y_coords))
+    return normalized_keypoints
 
 if __name__ == "__main__":
     hands_handler = mp.solutions.hands.Hands(

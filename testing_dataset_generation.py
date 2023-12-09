@@ -4,7 +4,14 @@ import mediapipe as mp
 import json
 from tqdm import tqdm
 
-def process_image(hands, image):
+def process_image(hands, image, label = ""):
+    if label == "dislike":
+        label = "dislike"
+        label_identifier = 0
+    else:
+        label = "like"
+        label_identifier = 1
+        
     try:
         img = cv.imread(image)
         results = hands.process(img[:,:,::-1])
@@ -20,8 +27,8 @@ def process_image(hands, image):
                 image_name = image.split("/")[-1]
                 print(f"{image_name} is processed successfully")
                 current_data = {
-                    "label": "dislike",
-                    "label_identifier": 0,
+                    "label": label,
+                    "label_identifier": label_identifier,
                     "landmarks": my_lm_list,
                 }
                 # Add the data to the overall dictionary
@@ -39,7 +46,7 @@ def write_to_json(data, json_file_path):
         json_file.write('\n')
 
 if __name__ == "__main__":
-    folder_path = "data/thumbs_up"  # Replace with the path to your image folder
+    folder_path = ["data/thumbs_up", "data/thumbs_up"]  # Replace with the path to your image folder
     json_file_path = "keypoints_all.json"
 
     hands_handler = mp.solutions.hands.Hands(
@@ -48,15 +55,15 @@ if __name__ == "__main__":
     )
 
     all_data = {}
-
-    files = os.listdir(folder_path)
-
-    for file in tqdm(files):
-        if file.lower().endswith(('.png', '.jpg', '.jpeg')):
-            image_path = os.path.join(folder_path, file)
-            data = process_image(hands_handler, image_path)
-            if data:
-                all_data.update(data)
+    for fol_path in folder_path:
+        files_type = fol_path.split("/")[1]
+        files = os.listdir(fol_path)
+        for file in tqdm(files):
+            if file.lower().endswith(('.png', '.jpg', '.jpeg')):
+                image_path = os.path.join(folder_path, file)
+                data = process_image(hands_handler, image_path, files_type)
+                if data:
+                    all_data.update(data)
 
     # Write the overall dictionary to a JSON file
     with open(json_file_path, 'w') as json_file:

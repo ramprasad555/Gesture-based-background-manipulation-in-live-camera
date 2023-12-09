@@ -6,12 +6,13 @@ def load_data(json_file_path):
     with open(json_file_path, 'r') as json_file:
         data = json.load(json_file)
     return data
+
 def prepare_data(data):
     labels = []
     landmarks = []
 
     for _, obj in data.items():
-        label = obj.get("label")
+        label = obj.get("label_identifier")
         if label is not None:
             labels.append(label)
             landmarks.append(obj.get("landmarks"))
@@ -23,17 +24,14 @@ def prepare_data(data):
     print(f"Shape before trimming or padding: {len(landmarks_flat)}")
 
     # Trim or pad the landmarks array to make it divisible by 20
-    landmarks_flat = landmarks_flat[:len(landmarks_flat) // 20 * 20]
+    # landmarks_flat = landmarks_flat[:len(landmarks_flat) // 20 * 20]
 
+
+    # TODO: DO NOT TRIM THE LANDMARK.
     # Print the shape of landmarks_flat after trimming or padding
-    print(f"Shape after trimming or padding: {len(landmarks_flat)}")
+    # print(f"Shape after trimming or padding: {len(landmarks_flat)}")
 
     return np.array(landmarks_flat), np.array(labels)
-
-
-def reshape_landmarks(landmarks):
-    # Reshape landmarks to 2D array with 21 rows and 200 columns
-    return np.reshape(landmarks, (21, 200))
 
 def train_knn_model(X_train, y_train, k=3):
     knn_model = KNeighborsClassifier(n_neighbors=k)
@@ -52,9 +50,9 @@ if __name__ == "__main__":
     # Prepare normalized data
     X, y = prepare_data(normalized_data)
     print(f"Shape before trimming or padding: {X.shape[1]}")
-
+    print(X)
     # Reshape landmarks to 2D array
-    X = reshape_landmarks(X)
+    # X = reshape_landmarks(X)
     # y = reshape_landmarks(y)
     # Check the shapes of X and y
     print(f"Shape of X: {X.shape}")

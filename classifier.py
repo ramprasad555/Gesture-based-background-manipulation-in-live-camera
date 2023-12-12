@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, f1_score
 
 class Classifier:
 	def __init__(self) -> None:
@@ -27,10 +27,7 @@ class Classifier:
 		return prediction[0]
 
 	def train_model(self, data):
-
-		# Assuming 'data' is your input data in the format provided
 		X, y = [], []
-
 		for filename, details in data.items():
 				landmarks = details["landmarks"]
 				normalized_landmarks = self.normalize_keypoints(landmarks)
@@ -43,24 +40,17 @@ class Classifier:
 		y = np.array(y)
 
 		X = X.reshape(X.shape[0], -1)
+
 		# Split the data into training and testing sets
 		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-		# Initialize and train the classifier
 		self.classifier = SVC()
 		self.classifier.fit(X_train, y_train)
 
-		# Make predictions on the test set
 		y_pred =self.classifier.predict(X_test)
 
 		# Evaluate the accuracy of the classifier
 		accuracy = accuracy_score(y_test, y_pred)
+		f1score = f1_score(y_test,y_pred)
 		print(f"Classifier Accuracy: {accuracy}")
-
-# with open("output.json", 'r') as f:
-#     data = json.load(f)
-
-# model = Classifier()
-# model.train_model(data)
-# predicted_label = model.predict_label(new_landmarks)
-# print(f"Predicted Label Identifier: {predicted_label}")
+		print(f"Classifier F1 score: {f1score}")

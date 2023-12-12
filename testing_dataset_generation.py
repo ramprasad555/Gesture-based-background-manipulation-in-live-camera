@@ -5,6 +5,7 @@ import json
 from tqdm import tqdm
 
 def process_image(hands, image, label = ""):
+
     if label == "dislike":
         label = "dislike"
         label_identifier = 0
@@ -31,6 +32,7 @@ def process_image(hands, image, label = ""):
                     "label_identifier": label_identifier,
                     "landmarks": my_lm_list,
                 }
+
                 # Add the data to the overall dictionary
                 all_data[image_name] = current_data
 
@@ -39,11 +41,6 @@ def process_image(hands, image, label = ""):
     except Exception as e:
         print(f"Error processing {image}: {e}")
         return None
-
-def write_to_json(data, json_file_path):
-    with open(json_file_path, 'a') as json_file:
-        json.dump(data, json_file, indent=2)
-        json_file.write('\n')
 
 if __name__ == "__main__":
     folder_path = ["data/thumbs_up", "data/thumbs_up"]  # Replace with the path to your image folder

@@ -6,6 +6,10 @@ import torchvision.transforms as T
 
 class HumanSegmenter:
     def __init__(self, alpha=0.5):
+        """
+        Initialize the HumanSegmenter with a pre-trained DeepLabV3 model, transformation functions, and blending alpha.
+        :param alpha (float): Blending factor for combining the original image and the colorized segmentation mask.
+        """
         self.model = models.segmentation.deeplabv3_resnet101(pretrained=True).eval()
         self.transforms = T.Compose([
             T.ToTensor(),
@@ -14,6 +18,11 @@ class HumanSegmenter:
         self.alpha = alpha
 
     def segment_human(self, img):
+        """
+        Perform human segmentation on the input image using the pre-trained DeepLabV3 model.
+        :param img (np.ndarray): Input image.
+        :return segmentation_mask (np.ndarray): Segmentation mask where human pixels are marked with class 15.
+        """
         input_tensor = self.transforms(img)
         input_batch = input_tensor.unsqueeze(0)
         with torch.no_grad():
@@ -22,7 +31,13 @@ class HumanSegmenter:
         return output_predictions.numpy()
 
     def colorize_segmentation(self, segmentation_mask: np.ndarray, img: np.ndarray, background_color) -> np.ndarray:
-
+        """
+        Colorize the segmentation mask based on the specified background color.
+        :param segmentation_mask (np.ndarray): Segmentation mask.
+        :param img (np.ndarray): Original image.
+        :param background_color (int): Background color selection (0 for green, 1 for blue).
+        :returns: colorized_mask (np.ndarray): Colorized image based on the segmentation mask and background color.
+        """
         if background_color == 0:
             background_color = (0, 0, 255)
 
@@ -40,6 +55,12 @@ class HumanSegmenter:
         return colorized_mask
 
     def detect_and_draw(self, img: np.ndarray , background_color) -> np.ndarray:
+        """
+        Detect and draw the segmented human in the original image.
+        :param img (np.ndarray): Original image.
+        :param background_color (int): Background color selection (0 for green, 1 for blue).
+        :returns: blended_image (np.ndarray): Blended image with the original and colorized segments.
+        """
         if background_color == -1:
             return img
         segmentation_mask = self.segment_human(img)
@@ -49,6 +70,7 @@ class HumanSegmenter:
         return blended_image
 
 if __name__ == "__main__":
+    
     # Create an instance of the HumanSegmenter
     segmenter = HumanSegmenter()
 

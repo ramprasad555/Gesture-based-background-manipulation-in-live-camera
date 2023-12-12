@@ -4,10 +4,23 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, f1_score
 
 class Classifier:
+	"""
+	This class contains the all the functions required in the classifier, 
+	including processing the data, training the data and predicting a new data point.
+	"""
 	def __init__(self) -> None:
+		"""
+		This is the class initializer.
+        Initializes an SVM classifier using the SVC (Support Vector Classification) class from scikit-learn.
+		"""
 		self.classifier = SVC()
 
 	def normalize_keypoints(self, keypoints):
+		"""
+		Normalize the x and y coordinates of keypoints to the range [0, 1].
+        :Param keypoints:keypoints (list): List of (x, y) coordinates.
+		:return normalized_keypoints (list): List of normalized (x, y) coordinates.
+		"""
 		x_coords, y_coords = zip(*keypoints)
 		x_coords = (np.array(x_coords) - min(x_coords)) / (max(x_coords) - min(x_coords))
 		y_coords = (np.array(y_coords) - min(y_coords)) / (max(y_coords) - min(y_coords))
@@ -15,10 +28,20 @@ class Classifier:
 		return normalized_keypoints
 
 	def flatten_landmarks(self, landmarks):
+		"""
+		Flatten a list of landmarks, where each landmark is a list of (x, y) coordinates.
+        :param landmarks: landmarks (list): List of landmarks.
+        :return: flattened_landmarks (list): List of flattened landmarks.
+		"""
 		flattened_landmarks = [np.array(landmark).flatten() for landmark in landmarks]
 		return flattened_landmarks
 
 	def predict_label(self,new_landmarks):
+		"""
+		Predict the label for a new set of landmarks.
+		:param new_landmarks (list): List of (x, y) coordinates for a new set of landmarks.
+		:param return: prediction (int): Predicted label for the new landmarks.
+		"""
 		normalized_landmarks = self.normalize_keypoints(new_landmarks)
 		flattened_landmarks = self.flatten_landmarks(normalized_landmarks)
 		flattened_landmarks = np.array(flattened_landmarks).reshape(1, -1)
@@ -27,6 +50,10 @@ class Classifier:
 		return prediction[0]
 
 	def train_model(self, data):
+		"""
+		Train the classifier using the provided data.
+        :param data (dict): Dictionary containing filenames, landmarks, and label identifiers.
+		"""
 		X, y = [], []
 		for filename, details in data.items():
 				landmarks = details["landmarks"]

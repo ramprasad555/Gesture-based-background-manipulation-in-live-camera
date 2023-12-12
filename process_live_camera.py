@@ -29,6 +29,7 @@ def process_live_camera(hands, model, segmenter):
                 for id, lm in enumerate(handLms.landmark):
                     px, py = lm.x, lm.y
                     my_lm_list.append([px, py])
+
                 if my_lm_list == []:
                     print("No hand detected")
                     continue
@@ -41,11 +42,12 @@ def process_live_camera(hands, model, segmenter):
             # cv.imshow("Hand Landmarks", frame)
 
         else:
-            # print("hands not detected")
+            print("hands not detected")
             result = segmenter.detect_and_draw(frame, -1)
             cv.imshow("Segmented Image", result)
                 # Display the landmarks on the frame (optional)
                 # mp.solutions.drawing_utils.draw_landmarks(frame, handLms, mp.solutions.hands.HAND_CONNECTIONS)
+        # cv.imshow("keypoints", frame)
 
         if cv.waitKey(1) & 0xFF == 27:  # Press 'Esc' to exit the live capture
             break
@@ -60,7 +62,7 @@ def main():
     )
     segmenter = HumanSegmenter()
 
-    with open("data.json", 'r') as f:
+    with open("keypoints_all.json", 'r') as f:
         data = json.load(f)
 
     model = Classifier()

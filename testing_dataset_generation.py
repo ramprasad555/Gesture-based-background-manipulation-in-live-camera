@@ -5,7 +5,13 @@ import json
 from tqdm import tqdm
 
 def process_image(hands, image, label = ""):
-
+    """
+    Process an image using the provided Mediapipe Hands object.
+    :param hands (mp.solutions.hands.Hands): Mediapipe Hands object for hand landmark detection.
+    :param image (str): Path to the image file.
+    :param label (str): Label for the image ("like" or "dislike").
+    :return all_data (dict): Dictionary containing processed data for the image.
+    """
     if label == "dislike":
         label = "dislike"
         label_identifier = 0
@@ -32,7 +38,7 @@ def process_image(hands, image, label = ""):
                     "label_identifier": label_identifier,
                     "landmarks": my_lm_list,
                 }
-
+                
                 # Add the data to the overall dictionary
                 all_data[image_name] = current_data
 
@@ -42,8 +48,12 @@ def process_image(hands, image, label = ""):
         print(f"Error processing {image}: {e}")
         return None
 
-if __name__ == "__main__":
-    folder_path = ["data/thumbs_up", "data/thumbs_up"]  # Replace with the path to your image folder
+def main():
+    """
+    This function does file processing and passes each image file to the process_image function
+    to get the json of each image file and stores it in the keypoints_all.json
+    """
+    folder_path = ["/local/datasets/csci631/HaGRID/dislike", "/local/datasets/csci631/HaGRID/like"]  
     json_file_path = "keypoints_all.json"
 
     hands_handler = mp.solutions.hands.Hands(
@@ -53,11 +63,12 @@ if __name__ == "__main__":
 
     all_data = {}
     for fol_path in folder_path:
-        files_type = fol_path.split("/")[1]
+        # gets the folder name
+        files_type = fol_path.split("/")[-1]
         files = os.listdir(fol_path)
         for file in tqdm(files):
             if file.lower().endswith(('.png', '.jpg', '.jpeg')):
-                image_path = os.path.join(folder_path, file)
+                image_path = os.path.join(fol_path, file)
                 data = process_image(hands_handler, image_path, files_type)
                 if data:
                     all_data.update(data)
@@ -68,3 +79,6 @@ if __name__ == "__main__":
 
     hands_handler.close()
     print("Finished processing all images.")
+
+if __name__ == "__main__":
+    main()

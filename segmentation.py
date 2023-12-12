@@ -23,10 +23,10 @@ class HumanSegmenter:
 
     def colorize_segmentation(self, segmentation_mask: np.ndarray, img: np.ndarray, background_color) -> np.ndarray:
 
-        if background_color == 1:
-            background_color = (255, 0, 0)
+        if background_color == 0:
+            background_color = (0, 0, 255)
 
-        else:
+        else: #background_color == 1:
             background_color = (0, 255, 0)
 
 
@@ -40,6 +40,8 @@ class HumanSegmenter:
         return colorized_mask
 
     def detect_and_draw(self, img: np.ndarray , background_color) -> np.ndarray:
+        if background_color == -1:
+            return img
         segmentation_mask = self.segment_human(img)
         colorized_mask = self.colorize_segmentation(segmentation_mask, img, background_color)
         blended_image = cv.addWeighted(img, 1 - self.alpha, colorized_mask, self.alpha, 0)
